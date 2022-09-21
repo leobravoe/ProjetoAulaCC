@@ -33,7 +33,7 @@
                         <td>{{$produto->descricao}}</td>
                         <td>
                             <a href="{{route("produto.show", $produto->id)}}" class="btn btn-primary">Mostrar</a>
-                            <a href="#" class="btn btn-secondary">Editar</a>
+                            <a href="{{route("produto.edit", $produto->id)}}" class="btn btn-secondary">Editar</a>
                             <a href="#" class="btn btn-danger class-button-destroy">Remover</a>
                         </td>
                     </tr>
