@@ -26,6 +26,7 @@ class ProdutoController extends Controller
                                        Produtos.created_at
                                 FROM Produtos
                                 JOIN TIPO_PRODUTOS on Produtos.Tipo_Produtos_id = Tipo_Produtos.id');
+        redirect('/produto');
         return view("Produto/index")->with("produtos", $produtos);
     }
 
@@ -55,7 +56,8 @@ class ProdutoController extends Controller
         $produto->ingredientes = $request->ingredientes;
         $produto->urlImage = $request->urlImage;
         $produto->save();
-        return $this->index();
+        //return $this->index();
+        return \Redirect::route('produto.index');
     }
 
     /**
@@ -135,7 +137,7 @@ class ProdutoController extends Controller
             $produto->urlImage = $request->urlImage;
             $produto->update();
             // Recarregar a view index.
-            return $this->index();
+            return \Redirect::route('produto.index');
         }
         // Tratar exceptions futuramente
         echo "Produto não encontrado";
@@ -149,6 +151,15 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = Produto::find($id); // Retorna o objeto encontrado ou null, caso ñ encontrado
+        // Se o produto foi encontrado
+        if( isset($produto) ) {
+            $produto->delete();
+            return \Redirect::route('produto.index');
+            //return $this->index();
+        }
+        else{
+            echo "Produto não encontrado";
+        }
     }
 }
