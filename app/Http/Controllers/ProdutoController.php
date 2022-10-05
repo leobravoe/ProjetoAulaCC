@@ -16,7 +16,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $produtos = DB::select('SELECT Produtos.id,
+        try {
+            $produtos = DB::select('SELECT Produtos.id,
                                        Produtos.nome,
                                        Produtos.preco,
                                        Tipo_Produtos.descricao,
@@ -26,8 +27,34 @@ class ProdutoController extends Controller
                                        Produtos.created_at
                                 FROM Produtos
                                 JOIN TIPO_PRODUTOS on Produtos.Tipo_Produtos_id = Tipo_Produtos.id');
-        redirect('/produto');
+        } catch (\Throwable $th) {
+            return view("Produto/index")->with("produtos", [])->with("message", [$th->getMessage(), "danger"]);
+        }
         return view("Produto/index")->with("produtos", $produtos);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexMessage($message)
+    {
+        try {
+            $produtos = DB::select('SELECT Produtos.id,
+                                       Produtos.nome,
+                                       Produtos.preco,
+                                       Tipo_Produtos.descricao,
+                                       Produtos.ingredientes,
+                                       Produtos.urlImage,
+                                       Produtos.updated_at,
+                                       Produtos.created_at
+                                FROM Produtos
+                                JOIN TIPO_PRODUTOS on Produtos.Tipo_Produtos_id = Tipo_Produtos.id');
+        } catch (\Throwable $th) {
+            return view("Produto/index")->with("produtos", [])->with("message", [$th->getMessage(), "danger"]);
+        }
+        return view("Produto/index")->with("produtos", $produtos)->with("message", $message);
     }
 
     /**
@@ -37,7 +64,11 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        $tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
+        try {
+            $tipoProdutos = DB::select("SELECT * FROM Tipo_Produtos");
+        } catch (\Throwable $th) {
+            return $this->indexMessage( [$th->getMessage(), "danger"] );
+        }
         return view("Produto/create")->with("tipoProdutos", $tipoProdutos);
     }
 
@@ -49,15 +80,20 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $produto = new Produto();
-        $produto->nome = $request->nome;
-        $produto->preco = $request->preco;
-        $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
-        $produto->ingredientes = $request->ingredientes;
-        $produto->urlImage = $request->urlImage;
-        $produto->save();
-        //return $this->index();
-        return \Redirect::route('produto.index');
+        try {
+            $produto = new Produto();
+            $produto->nome = $request->nome;
+            $produto->preco = $request->preco;
+            $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
+            $produto->ingredientes = $request->ingredientes;
+            $produto->urlImage = $request->urlImage;
+            $produto->save();
+        } catch (\Throwable $th) {
+            // Mensagem de erro
+            return $this->indexMessage( [$th->getMessage(), "danger"] );
+        }
+        //Mensagem de sucesso
+        return $this->indexMessage( ["Produto cadastrado com sucesso", "success"] );
     }
 
     /**

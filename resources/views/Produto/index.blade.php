@@ -12,6 +12,13 @@
 </head>
 <body>
     <div class="container">
+        {{-- <?php $message = [ "Texto a ser exibido", "warning" ] ?> --}}
+        @if (isset($message))
+            <div class="alert alert-{{$message[1]}} alert-dismissible fade show" role="alert">
+                <span>{{$message[0]}}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <a class="btn btn-primary" href="{{route("produto.create")}}">Criar Produto</a>
         <a class="btn btn-primary" href="#">Voltar</a>
         <table class="table table-hover">
