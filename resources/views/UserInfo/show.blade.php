@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index de Produto</title>
+    <title>Show userinfo</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -12,48 +12,50 @@
 </head>
 <body>
     <div class="container">
-        {{-- <?php $message = [ "Texto a ser exibido", "warning" ] ?> --}}
         @if (isset($message))
             <div class="alert alert-{{$message[1]}} alert-dismissible fade show" role="alert">
                 <span>{{$message[0]}}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <a class="btn btn-primary" href="{{route("produto.create")}}">Criar Produto</a>
-        <a class="btn btn-primary" href="#">Voltar</a>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Preço</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($produtos as $produto)
-                    <tr>
-                        <th scope="row">{{$produto->id}}</th>
-                        <td>{{$produto->nome}}</td>
-                        <td>{{$produto->preco}}</td>
-                        <td>{{$produto->descricao}}</td>
-                        <td>
-                            <a href="{{route("produto.show", $produto->id)}}" class="btn btn-primary">Mostrar</a>
-                            <a href="{{route("produto.edit", $produto->id)}}" class="btn btn-secondary">Editar</a>
-                            <a 
-                                href="#" 
-                                class="btn btn-danger class-button-destroy" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#destroyModal"
-                                value="{{route("produto.destroy", $produto->id)}}"> 
-                                    Remover
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-          </table>
+        <a href="{{route("userinfo.edit", $userInfo->Users_id)}}" class="btn btn-secondary">Editar</a>
+        <a 
+            href="#" 
+            class="btn btn-danger class-button-destroy" 
+            data-bs-toggle="modal" 
+            data-bs-target="#destroyModal"
+            value="{{route("userinfo.destroy", $userInfo->Users_id)}}"> 
+                Remover
+        </a>
+        <div class="form-group">
+            <label for="id-input-id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id-input-id" aria-describedby="idHelp" placeholder="#" value="{{$userInfo->Users_id}}" disabled>
+            <div id="id" class="form-text">Não será necessário cadastrar um id</div>
+        </div>
+        <div class="form-group">
+            <label for="id-input-profileImg" class="form-label">Profile Img</label>
+            <input name="profileImg" type="text" class="form-control" id="id-input-profileImg" placeholder="Digite o profileImg" value="{{$userInfo->profileImg}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="id-input-status" class="form-label">Status</label>
+            <input type="text" class="form-control" id="id-input-status" placeholder="#" value="{{$userInfo->status}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="id-input-dataNasc" class="form-label">dataNasc</label>
+            <input name="dataNasc" type="text" class="form-control" id="id-input-dataNasc" placeholder="Digite os dataNasc" value="{{$userInfo->dataNasc}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="id-input-genero" class="form-label">Genero</label>
+            <input name="genero" type="text" class="form-control" id="id-input-genero" placeholder="Digite a genero" value="{{$userInfo->genero}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="id-input-updated_at" class="form-label">updated_at</label>
+            <input name="updated_at" type="text" class="form-control" id="id-input-updated_at" placeholder="Digite a updated_at" value="{{$userInfo->updated_at}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="id-input-created_at" class="form-label">created_at</label>
+            <input name="created_at" type="text" class="form-control" id="id-input-created_at" placeholder="Digite a created_at" value="{{$userInfo->created_at}}" disabled>
+        </div>
     </div>
 
     <!-- Modal -->

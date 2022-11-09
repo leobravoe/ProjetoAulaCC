@@ -36,6 +36,14 @@ Route::resource('tipoproduto', "App\Http\Controllers\TipoProdutoController");
 Route::resource('produto', "App\Http\Controllers\ProdutoController");
 
 
+Route::get('userinfo/create', "App\Http\Controllers\UserInfoController@create")->name("userinfo.create");
+Route::post('userinfo', "App\Http\Controllers\UserInfoController@store")->name("userinfo.store");
+Route::get('userinfo/{id}', "App\Http\Controllers\UserInfoController@show")->name("userinfo.show");
+Route::get('userinfo/{id}/edit', "App\Http\Controllers\UserInfoController@edit")->name("userinfo.edit");
+Route::put('userinfo/{id}', "App\Http\Controllers\UserInfoController@update")->name("userinfo.update");
+Route::delete('userinfo/{id}', "App\Http\Controllers\UserInfoController@destroy")->name("userinfo.destroy");
+
+
 // use App\Models\Produto;
 // use Illuminate\Support\Facades\DB;
 
