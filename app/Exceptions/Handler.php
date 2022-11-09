@@ -38,4 +38,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /** 
+     * Essa função captura uma exception que é causada quando um usuário não está autenticado.
+     * 
+    */
+    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception) {
+        //return redirect()->route("tipoproduto.index");
+        return redirect()->route("login");
+    }
+    
 }

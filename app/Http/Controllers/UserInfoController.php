@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserInfo;
+use Illuminate\Support\Facades\Auth;
 
 class UserInfoController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:web'); // Especificando qual guarda estamos utilizando
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +48,7 @@ class UserInfoController extends Controller
     public function store(Request $request)
     {
         // Pega o id do usuário logado
-        $loggedUserId = 1;
+        $loggedUserId = Auth::user()->id;
 
         try{
             $userInfo = new UserInfo();
@@ -63,14 +74,14 @@ class UserInfoController extends Controller
     public function show($id)
     {
         try {
-            $userInfo = UserInfo::where('Users_id', $id)->first();
+            $userInfo = UserInfo::where('Users_id', $id)->where('Users_id', Auth::user()->id)->first();
             //$userInfo = UserInfo::find($id);
             if(isset($userInfo)){
                 // Returno do sucesso
                 return view("UserInfo/show")->with("userInfo", $userInfo);
             }
             // Returno do aviso
-            return view("UserInfo/create")->with("message", ["Informação não encontrada", "warning"]);
+            return view("home");
         } catch (\Throwable $th) {
             // Returno do erro
             return view("UserInfo/create")->with("message", [$th->getMessage(), "danger"]);
@@ -86,13 +97,13 @@ class UserInfoController extends Controller
     public function edit($id)
     {
         try {
-            $userInfo = UserInfo::where('Users_id', $id)->first();
+            $userInfo = UserInfo::where('Users_id', $id)->where('Users_id', Auth::user()->id)->first();
             //$userInfo = UserInfo::find($id);
             if(isset($userInfo)){
                 return view("UserInfo/edit")->with("userInfo", $userInfo);
             }
             // Returno do aviso
-            return view("UserInfo/create")->with("message", ["Informação não encontrada", "warning"]);
+            return view("home");
         } catch (\Throwable $th) {
             // Returno do erro
             return view("UserInfo/create")->with("message", [$th->getMessage(), "danger"]);
@@ -110,7 +121,8 @@ class UserInfoController extends Controller
     {
         try {
             // Pega o id do usuário logado
-            $loggedUserId = 1;
+            $loggedUserId = Auth::user()->id;
+
             $userInfo = UserInfo::where('Users_id', $id)->first();
             if(isset($userInfo)){
                 $userInfo->Users_id = $loggedUserId;
@@ -138,14 +150,14 @@ class UserInfoController extends Controller
     public function destroy($id)
     {
         try {
-            $userInfo = UserInfo::where('Users_id', $id)->first();
+            $userInfo = UserInfo::where('Users_id', $id)->where('Users_id', Auth::user()->id)->first();
             //$userInfo = UserInfo::find($id);
             if(isset($userInfo)){
                 $userInfo->delete();
                 return view("UserInfo/create")->with("message", ["Informação removida com sucesso", "success"]);
             }
             // Returno do aviso
-            return view("UserInfo/create")->with("message", ["Informação não encontrada", "warning"]);
+            return view("home");
         } catch (\Throwable $th) {
             // Returno do erro
             return view("UserInfo/create")->with("message", [$th->getMessage(), "danger"]);
