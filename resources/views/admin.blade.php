@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="#" class="btn btn-primary">Gerenciar Pedidos</a>
+                    <a href="{{route("produto.index")}}" class="btn btn-primary">Gerenciar Produtos</a>
+                    <a href="{{route("tipoproduto.index")}}" class="btn btn-primary">Gerenciar Tipo de Produtos</a>
+                    <a href="/" class="btn btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

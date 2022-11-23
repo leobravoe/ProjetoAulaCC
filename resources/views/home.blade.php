@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="#" class="btn btn-primary">Gerenciar Pedidos</a>
+                    <a href="{{route("endereco.index")}}"" class="btn btn-primary">Gerenciar Enderecos</a>
+                    <a href="{{route("userinfo.create")}}" class="btn btn-primary">Gerenciar Informações Adicionais</a>
+                    <a href="/" class="btn btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

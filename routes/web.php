@@ -42,6 +42,8 @@ Route::get('userinfo/{id}/edit', "App\Http\Controllers\UserInfoController@edit")
 Route::put('userinfo/{id}', "App\Http\Controllers\UserInfoController@update")->name("userinfo.update");
 Route::delete('userinfo/{id}', "App\Http\Controllers\UserInfoController@destroy")->name("userinfo.destroy");
 
+Route::resource('endereco', "App\Http\Controllers\EnderecoController");
+
 // Route::resource('produto', "App\Http\Controllers\ProdutoController");
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

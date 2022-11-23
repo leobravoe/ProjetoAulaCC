@@ -36,6 +36,9 @@ class UserInfoController extends Controller
      */
     public function create()
     {
+        $userInfo = UserInfo::where('Users_id', Auth::user()->id)->first();
+        if($userInfo)
+            return view("UserInfo/show")->with("userInfo", $userInfo);
         return view("UserInfo/create");
     }
 
