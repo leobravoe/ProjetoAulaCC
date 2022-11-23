@@ -16,7 +16,7 @@ class ProdutoController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:web'); // Especificando qual guarda estamos utilizando
+        $this->middleware('auth:admin'); // Especificando qual guarda estamos utilizando
     }
 
     /**

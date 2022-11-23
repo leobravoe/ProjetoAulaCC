@@ -35,7 +35,6 @@ Route::resource('tipoproduto', "App\Http\Controllers\TipoProdutoController");
 // Route::delete('produto/{id}', "App\Http\Controllers\ProdutoController@destroy")->name("produto.destroy");
 Route::resource('produto', "App\Http\Controllers\ProdutoController");
 
-
 Route::get('userinfo/create', "App\Http\Controllers\UserInfoController@create")->name("userinfo.create");
 Route::post('userinfo', "App\Http\Controllers\UserInfoController@store")->name("userinfo.store");
 Route::get('userinfo/{id}', "App\Http\Controllers\UserInfoController@show")->name("userinfo.show");
@@ -43,25 +42,30 @@ Route::get('userinfo/{id}/edit', "App\Http\Controllers\UserInfoController@edit")
 Route::put('userinfo/{id}', "App\Http\Controllers\UserInfoController@update")->name("userinfo.update");
 Route::delete('userinfo/{id}', "App\Http\Controllers\UserInfoController@destroy")->name("userinfo.destroy");
 
-
-// use App\Models\Produto;
-// use Illuminate\Support\Facades\DB;
-
-// Route::get('teste', function () {
-//     //$produto = DB::select('SELECT * FROM PRODUTOS where id = 1')[0]; // retorna um array [] ou [obj...]
-//     $produto = Produto::find(1); // retorna null ou obj
-//     //$produto = Produto::where('preco', 8)->first();
-//     //$produto = Produto::where('preco', 8)->get();
-//     //$produto->nome = "Pepperonii";
-//     //$produto->update();
-//     dd($produto);
-// });
-
-
-
-
-
-
 // Route::resource('produto', "App\Http\Controllers\ProdutoController");
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/user/logout', 'App\Http\Controllers\Auth\LoginController@userLogout')->name('user.logout');
+
+Route::prefix('admin')->group(function () {
+    // Dashboard route
+    Route::get('/', 'App\Http\Controllers\AdminController@index')->name('admin.dashboard');
+
+    // Login routes
+    Route::get('/login', 'App\Http\Controllers\Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'App\Http\Controllers\Auth\AdminLoginController@login')->name('admin.login.submit');
+
+    // Logout route
+    Route::post('/logout', 'App\Http\Controllers\Auth\AdminLoginController@logout')->name('admin.logout');
+
+    // Register routes
+    // Route::get('/register', 'App\Http\Controllers\Auth\AdminRegisterController@showRegistrationForm')->name('admin.register');
+    // Route::post('/register', 'App\Http\Controllers\Auth\AdminRegisterController@register')->name('admin.register.submit');
+
+    // Password reset routes
+    Route::get('/password/reset', 'App\Http\Controllers\Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('/password/email', 'App\Http\Controllers\Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset/{token}', 'App\Http\Controllers\Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::post('/password/reset', 'App\Http\Controllers\Auth\AdminResetPasswordController@reset')->name('admin.password.update');
+});
+
