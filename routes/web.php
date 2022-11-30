@@ -71,3 +71,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/password/reset', 'App\Http\Controllers\Auth\AdminResetPasswordController@reset')->name('admin.password.update');
 });
 
+// Rotas para PedidoUsuario
+Route::get('pedido/usuario', "App\Http\Controllers\PedidoUsuarioController@index")->name("pedidousuario.index");
