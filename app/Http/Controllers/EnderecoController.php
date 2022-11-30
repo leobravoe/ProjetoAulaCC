@@ -26,11 +26,10 @@ class EnderecoController extends Controller
      */
     public function index()
     {
-        $logged = Auth::guard('web')->user(); // Retorna um objeto do Model User
         try {
+            $logged = Auth::guard('web')->user(); // Retorna um objeto do Model User
             $enderecos = DB::select('SELECT * FROM Enderecos where Users_id = ?', [$logged->id]);
         } catch (\Throwable $th) {
-            //throw $th;
             return view("Endereco/index")->with("enderecos", $enderecos)->with("message", [$th->getMessage(), "danger"]);
         }
         return view("Endereco/index")->with("enderecos", $enderecos);
