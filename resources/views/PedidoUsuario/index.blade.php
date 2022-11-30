@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="{{ asset('js/pedidoUsuario.js') }}"></script>  
+    <script src="{{ asset('js/pedidoUsuario.js') }}"></script> 
     <div class="container">
         {{-- Parte superior --}}
         <div>
