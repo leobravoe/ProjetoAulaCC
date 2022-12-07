@@ -1,0 +1,22 @@
+#list-pedidos{
+    height: 340px;
+}
+
+#list-produtos{
+    height: 286px;
+}
+
+.fa-solid.fa-pencil-square {
+    color: Dodgerblue;
+}
+
+.fa-solid.fa-trash{
+    color: Tomato;
+}
+
+.class-icons-produto-list{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}

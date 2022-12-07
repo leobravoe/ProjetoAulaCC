@@ -86,4 +86,7 @@ $(document).ready( function() {
             }
         });
     }
+
+    // roda pela primeira vez o método updateProdutos
+    updateProdutos();
 });

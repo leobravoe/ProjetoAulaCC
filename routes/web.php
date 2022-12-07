@@ -74,3 +74,9 @@ Route::prefix('admin')->group(function () {
 // Rotas para PedidoUsuario
 Route::get('pedido/usuario', "App\Http\Controllers\PedidoUsuarioController@index")->name("pedidousuario.index");
 Route::get("/pedido/usuario/getprodutos/{id}", "App\Http\Controllers\PedidoUsuarioController@getProdutos")->name("pedidousuario.getProdutos");
+
+
+// Rotas para PedidoAdmin
+Route::get('pedido/admin', "App\Http\Controllers\PedidoAdminController@index")->name("pedidoadmin.index");
+Route::get('pedido/admin/getpedidos', "App\Http\Controllers\PedidoAdminController@getPedidos")->name("pedidoadmin.getPedidos");
+
